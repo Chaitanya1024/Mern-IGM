@@ -1,6 +1,6 @@
-FROM node:18
+FROM node:18-slim
 
-# Install necessary libraries for Puppeteer and Chromium
+# Install necessary libraries for Puppeteer
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
@@ -33,23 +33,14 @@ RUN apt-get update && apt-get install -y \
     libatspi2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user
-RUN useradd -m myuser
-
 # Set up your application
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 
-# Ensure Puppeteer downloads the necessary Chromium binaries
-RUN npx puppeteer install
-
-# Change ownership of the files to the non-root user
-RUN chown -R myuser:myuser /app
-
-# Change to the non-root user
-USER myuser
+# Install Puppeteer and Chromium
+RUN npm install puppeteer
 
 # Expose the port
 EXPOSE 5000
