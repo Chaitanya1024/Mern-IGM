@@ -30,7 +30,9 @@ async function generatePdf(products) {
     const htmlFilePath = await saveHtmlToFile(htmlContent, '../templates/invoice.html');
 
     // Launch Puppeteer
-    const browser = await puppeteer.launch({ headless: true, devtools: true });
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+      });
     const page = await browser.newPage();
     await page.goto(`file://${htmlFilePath}`, { waitUntil: 'networkidle0', timeout: 60000 });
     const pdfPath = path.join(__dirname, '../templates/invoice.pdf');

@@ -33,14 +33,20 @@ RUN apt-get update && apt-get install -y \
     libatspi2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
+# Create a non-root user
+RUN useradd -m myuser
+
 # Set up your application
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 
+# Change to the non-root user
+USER myuser
+
 # Expose the port
 EXPOSE 5000
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
