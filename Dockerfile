@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     libnss3 \
     libatk-bridge2.0-0 \
     libgtk-3-0 \
+    libgbm1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up your application
