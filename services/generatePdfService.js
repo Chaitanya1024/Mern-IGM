@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const ejs = require('ejs');
 const path = require('path');
 const fs = require('fs');
+require('web-streams-polyfill/polyfill');
 
 const saveHtmlToFile = async (htmlContent, fileName) => {
     const filePath = path.join(__dirname, fileName);
