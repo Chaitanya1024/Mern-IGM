@@ -42,6 +42,9 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
+# Ensure Puppeteer downloads the necessary Chromium binaries
+RUN npx puppeteer install
+
 # Change ownership of the files to the non-root user
 RUN chown -R myuser:myuser /app
 
@@ -52,4 +55,4 @@ USER myuser
 EXPOSE 5000
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["npm", "start"]
