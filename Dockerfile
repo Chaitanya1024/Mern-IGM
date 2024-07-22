@@ -1,4 +1,4 @@
-FROM node:22.5.1
+FROM node:18
 
 # Install necessary libraries for Puppeteer and Chromium
 RUN apt-get update && apt-get install -y \
