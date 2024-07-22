@@ -19,6 +19,6 @@ app.use('/api/quotations', quotationRoutes);
 
 connectToMongo();
 app.listen(process.env.PORT, '0.0.0.0', () => {
-    console.log('Example app listening at http://localhost:5000');
+    console.log(`Example app listening at http://localhost:${process.env.PORT}`);
   });
   
