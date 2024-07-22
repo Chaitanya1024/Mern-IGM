@@ -1,9 +1,19 @@
 const admin = require('firebase-admin');
-const { Base64 } = require('js-base64'); // Add this dependency if needed
+const { Base64 } = require('js-base64');
 
 // Decode the base64-encoded service account key
-const serviceAccountKeyBase64 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-const serviceAccountKey = JSON.parse(Base64.decode(serviceAccountKeyBase64));
+const serviceAccountKeyBase64 = process.env.FIREBASE_CREDENTIALS;
+
+if (!serviceAccountKeyBase64) {
+    throw new Error('Environment variable FIREBASE_CREDENTIALS is not set.');
+}
+
+let serviceAccountKey;
+try {
+    serviceAccountKey = JSON.parse(Base64.decode(serviceAccountKeyBase64));
+} catch (err) {
+    throw new Error('Failed to decode or parse FIREBASE_CREDENTIALS: ' + err.message);
+}
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
