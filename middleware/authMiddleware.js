@@ -21,11 +21,14 @@ const hashPassword = async (password) => {
 
 const authenticate = async (req, res, next) => {
   let token;
-
+console.log(req.headers.authorization)
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
+      console.log(token)
+      console.log(process.env.JWT_SECRET)
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log(decoded)
       req.user = await findUserById(decoded.id);
       next();
     } catch (error) {
