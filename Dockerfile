@@ -42,6 +42,9 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
+# Change ownership of the files to the non-root user
+RUN chown -R myuser:myuser /app
+
 # Change to the non-root user
 USER myuser
 
@@ -49,4 +52,4 @@ USER myuser
 EXPOSE 5000
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
