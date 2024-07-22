@@ -29,7 +29,7 @@ const addProducts = async (req, res) => {
         return successResponse(quotation, 'Quotation generated');
     } catch (error) {
         console.error('Error generating quotation:', error);
-        return errorResponse('Failed to generate quotation', 500);
+        return errorResponse('Failed to generate quotation'+''+error, 500);
     }
 };
 
